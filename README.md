@@ -9,7 +9,7 @@
 * [Layout and Visibility](layout)
 	* Sub report - Suppress Header when not in Drill Down
 	* Alternating Row Color
-* Formatted datatypes
+* [Formatted datatypes](format)
 	* Decimal To Fraction formatted text
 	* Address Block with dynamic optional address lines
 	* Date calculations excluding weekends
