@@ -1,0 +1,22 @@
+
+Sub report - Suppress Header when not in Drill Down
+
+After creating the page header follow the following steps to suppress the header when showing in main report and un-suppress after drilldown
+ 
+	1. Right click on sub report and select Format Sub report
+	2. Go to Sub report Tab in Format Editor and select Preview Tab Caption conditional format button
+	3. Write the following condition
+
+shared stringvar Header:="Show";
+"Sub Report Preview"
+ 
+	4. Go to sub report and write the following suppress condition for report header
+	 
+shared stringvar Header;
+if Header="Show" then  true else false
+
+## Row Color
+
+if RecordNumber mod 2 = 0 then crSilver else crNoColor
+ 
+if GroupNumber mod 2 = 0 then color(230,230,230) else 
