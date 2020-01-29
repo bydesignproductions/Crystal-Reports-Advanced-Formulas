@@ -1,7 +1,5 @@
 # Crystal-Reports-Advanced-Formulas
 
-* Database Connection Script
-* Source
 * [Grouping](group)
 	* "Continued" formula for groups that span multiple pages
 	* Non-Standard Week Grouping
