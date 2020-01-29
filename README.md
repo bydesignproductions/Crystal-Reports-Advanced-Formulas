@@ -6,7 +6,7 @@
 	* "Continued" formula for groups that span multiple pages
 	* Non-Standard Week Grouping
 	* 0.0 Grouping
-* Layyout and Visibility
+* [Layout and Visibility](layout)
 	* Sub report - Suppress Header when not in Drill Down
 	* Alternating Row Color
 * Formatted datatypes
