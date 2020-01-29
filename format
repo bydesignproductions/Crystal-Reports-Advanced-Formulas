@@ -1,0 +1,105 @@
+Decimal To Fraction
+
+		NumberVar raw := {NumberField}/25.4;
+
+		NumberVar wholeNumber := int(raw);
+		NumberVar decInput := Ceiling (raw - Wholenumber , .0625);
+		NumberVar numerator :=1;
+		NumberVar denominator :=1;
+		NumberVar decimalFraction := numerator / denominator ;
+
+		Do ((If decimalFraction < decInput
+		Then numerator := numerator + 1
+		Else ( denominator := denominator + 1 ;
+		numerator := truncate(decInput * denominator))) ;
+		decimalFraction := numerator / denominator )
+		While decimalFraction <> decInput;
+
+		(if wholenumber > 0
+		then totext(wholeNumber,0,"") + " "
+		else "")
+		&
+		(if numerator > 0
+		then totext(numerator,0 , "") & "/" & totext(denominator,0 , "")
+		else "")
+		
+		Raw should be the number to convert
+		in this formula it represents the conversion between metric to inches
+		which is why it is divided by 25.4
+
+		The Ceiling factor rounds the number up to a multiple of the provided number
+		in this case .0625 will round it up to the next 1/16th of an inch
+
+
+Address Concatenation
+
+		Stringvar address1 := if {Address.addAddress1} = '' then '' else {Address.addAddress1} &chr(13);
+		Stringvar address2 := if {Address.addAddress2} = '' then '' else {Address.addAddress2} &chr(13);
+		Stringvar address3 := if {Address.addAddress3} = '' then '' else {Address.addAddress3} &chr(13);
+
+		address1 & address2 & address3 & {Address.addCity} & ', ' & {Address.addState} & ' ' & {Address.addZip}
+
+Dates Excluding Weekends
+
+		Difference between 2 dates
+
+			DateDiff ("d", d1, d2) - 
+			DateDiff ("ww", d1, d2, crSaturday) -
+			DateDiff ("ww", d1, d2, crSunday)
+
+
+		Adding/Subtracting from Date
+
+			WhileReadingRecords;
+			DateVar Target:={@Broc Sch};  //Put your field name in here
+			NumberVar Add:= -8; // Put in the number of days to subtract (a negative number)
+			NumberVar Added := 0;
+
+			WHILE Added > Add 
+			Do (target := target -1;
+				if dayofweek (target) in 2 to 6
+					then Added:=Added-1
+					else Added:=Added);
+			Target
+			WhileReadingRecords;
+			DateVar Target := Date({v_OrderSummaryInfo.DateCustReq});  //Put your field name in here
+
+			NumberVar Add := -20; 
+
+			WHILE Add < 0
+			Do (target := target - 1;
+				if dayofweek (target) in 2 to 6
+					then Add := Add + 1
+					else Add := Add);
+			target
+
+
+Variable Count Totals
+
+		Shared Variables pulled in from the Attribute Report (variable: Box)
+
+		4 Formula's are required for each group to add Subtotals too
+
+		Variable: 	BoxVar	
+		Location: 	Detail (field to count)						
+		
+			Shared Stringvar Box;
+			if Box = '' then 0 else tonumber(Box)
+		
+		Variable: 	Box Count	
+		Location: 	Detail (field to count)
+		
+			WhilePrintingRecords;
+			Global numbervar i;
+			i :=  i + {@Box Count} 
+			
+		Variable: 	Box Count Reset	
+		Location: 	Header
+
+			numbervar i := 0
+				
+		Variable: 	Box Count Display
+		Location: 	Footer (Sum location)	
+		
+			WhilePrintingRecords;
+			numbervar i;
