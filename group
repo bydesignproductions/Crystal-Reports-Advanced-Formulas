@@ -1,0 +1,29 @@
+"Continued" formula for large groups
+
+		If InRepeatedGroupHeader then 'Continued'
+
+
+Non-Standard Week Grouping
+
+Group per Day based on this formula (where 4 = 4 start of week day):
+ 
+		DateTimeVar YourDate := {Orders.Order Date};
+		Numbervar WeekStart :=4;
+		Date (YourDate) - DayOfWeek (YourDate) + WeekStart
+		- (if DayOfWeek (YourDate) < WeekStart then 7)
+
+
+0.0.0 Grouping
+
+Formula to Group by for Order Lines
+ 
+		if length({OrderLines.olnOutlineNo}) = 1 then  tonumber(left({OrderLines.olnOutlineNo},1))
+		else if length({OrderLines.olnOutlineNo}) = 2 then  tonumber(left({OrderLines.olnOutlineNo},2))
+		else if length({OrderLines.olnOutlineNo}) = 3 then tonumber(mid({OrderLines.olnOutlineNo},3,1)) /100 + tonumber(left({OrderLines.olnOutlineNo},1))
+		else if length({OrderLines.olnOutlineNo}) = 4 then tonumber(mid({OrderLines.olnOutlineNo},3,2)) /100 + tonumber(left({OrderLines.olnOutlineNo},1))
+		else if InStr (right({OrderLines.olnOutlineNo},length({OrderLines.olnOutlineNo}) - 2),'.') = 2 then tonumber(mid({OrderLines.olnOutlineNo},3,1)) /100 + tonumber(left({OrderLines.olnOutlineNo},1))
+		else if InStr (right({OrderLines.olnOutlineNo},length({OrderLines.olnOutlineNo}) - 2),'.') = 3 then tonumber(mid({OrderLines.olnOutlineNo},3,2)) /100 + tonumber(left({OrderLines.olnOutlineNo},1))
+
+
+		Also, to remove the "top" line,  in the selection expert set
+		{OrderLines.olnOutlineNo}  <>  "1"
