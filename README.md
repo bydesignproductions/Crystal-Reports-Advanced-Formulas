@@ -2,7 +2,7 @@
 
 * Database Connection Script
 * Source
-* Grouping
+* [Grouping](group)
 	* "Continued" formula for groups that span multiple pages
 	* Non-Standard Week Grouping
 	* 0.0 Grouping
